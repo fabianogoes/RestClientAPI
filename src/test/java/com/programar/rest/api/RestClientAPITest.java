@@ -79,4 +79,16 @@ public class RestClientAPITest {
 		}
 	}
 	
+	@Test
+	public void testRequestGetWithHeaders() throws IOException{
+		RequestEntity requestEntity = new RequestEntity(ProtocolType.HTTP, "192.9.200.20", 8080, "/restservicetest");
+		
+		requestEntity.getHeaders().put("token_id", "123.123.123.123");
+		requestEntity.getHeaders().put("token_client", "4444");
+		RestClientAPI client = new RestClientAPI(requestEntity);
+		ResponseEntity responseEntity = client.get();
+
+		Assert.assertEquals("[GET] - Status code should be OK", HttpStatus.OK, responseEntity.getHttpStatus());
+	}
+	
 }
